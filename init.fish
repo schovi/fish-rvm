@@ -40,21 +40,21 @@ function __get_rvm_version
   set -l cwd $argv[1]
 
   # TODO
-  if test -s ".versions.conf"
+  if test -s "$cwd/.versions.conf"
     echo ".versions.conf is not supported"
     return 1
   end
 
-  if test -s ".rvmrc"
-    echo (cat .rvmrc)
+  if test -s "$cwd/.rvmrc"
+    echo (cat $cwd/.rvmrc)
     return
   end
 
-  if test -s ".ruby-version"
-    set -l ruby_version (cat .ruby-version)
+  if test -s "$cwd/.ruby-version"
+    set -l ruby_version (cat $cwd/.ruby-version)
 
-    if test -s ".ruby-gemset"
-      echo $ruby_version"@"(cat .ruby-gemset)
+    if test -s "$cwd/.ruby-gemset"
+      echo $ruby_version"@"(cat $cwd/.ruby-gemset)
     else
       echo $ruby_version
     end
