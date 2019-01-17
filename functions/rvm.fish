@@ -3,8 +3,8 @@ function rvm -d 'Ruby enVironment Manager'
   set -l env_file (mktemp -t rvm.fish.XXXXXXXXXX)
 
   bash -c '[ -e ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm || \
-           source /usr/local/rvm/scripts/rvm; rvm "$@"; status=$?; \
-           env > "$0"; exit $status' $env_file $argv
+          source /usr/local/rvm/scripts/rvm; rvm "$@"; status=$?; \
+          env > "$0"; exit $status' $env_file $argv
 
   # grep the rvm_* *PATH RUBY_* GEM_* variables from the captured environment
   # exclude lines with _clr and _debug
@@ -12,7 +12,7 @@ function rvm -d 'Ruby enVironment Manager'
   and grep '^rvm\|^[^=]*PATH\|^RUBY_\|^GEM_' $env_file | \
       grep -v _clr | grep -v _debug | \
       sed '/^PATH/y/:/ /; s/^/set -xg /; s/=/ /; s/$/ ;/; s/(//; s/)//' | \
-      source 
+      source
 
   # clean up
   rm -f $env_file
